@@ -17,6 +17,18 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".FirstVisitActivity"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+
+        <activity android:name=".SetPassActivity"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+
+        <activity android:name=".InputPassActivity"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+
         <activity android:name=".AddExpenseActivity">
         </activity>
 

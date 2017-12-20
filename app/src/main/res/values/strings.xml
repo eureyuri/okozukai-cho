@@ -7,4 +7,8 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+    <string name="greetings">ようこそ</string>
+    <string name="next">進む</string>
+    <string name="set_pass">パスワードの登録</string>
+    <string name="input_pass">パスワードの入力</string>
 </resources>
