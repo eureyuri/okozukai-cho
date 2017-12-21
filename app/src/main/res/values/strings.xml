@@ -11,4 +11,10 @@
     <string name="next">進む</string>
     <string name="set_pass">パスワードの登録</string>
     <string name="input_pass">パスワードの入力</string>
+    <string name="current">現在</string>
+    <string name="thisWeek">今週</string>
+    <string name="leftOver">今週残り</string>
+    <string name="threshold">Threshold</string>
+    <string name="change_pass">パスワードの変更</string>
+    <string name="confirm_setting">設定</string>
 </resources>

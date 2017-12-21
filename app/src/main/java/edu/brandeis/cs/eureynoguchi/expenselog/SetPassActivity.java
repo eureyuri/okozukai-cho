@@ -49,7 +49,7 @@ public class SetPassActivity extends AppCompatActivity {
                 editor.putString("password", PatternLockUtils.patternToString(mPatternLockView, pattern));
                 editor.apply();
 
-                startActivity(new Intent(SetPassActivity.this, AddExpenseActivity.class));
+                startActivity(new Intent(SetPassActivity.this, SettingActivity.class));
             }
 
             @Override

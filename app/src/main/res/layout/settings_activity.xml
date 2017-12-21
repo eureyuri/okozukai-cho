@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/current_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/threshold"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/threshold"
+            android:layout_marginTop="38dp"
+            android:text="@string/current"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/threshold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/input_current"
+            android:layout_marginLeft="29dp"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="59dp"
+            android:text="@string/threshold"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/input_current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/current_price_label"
+            android:layout_alignBottom="@+id/current_price_label"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/threshold"
+            android:layout_toRightOf="@+id/threshold"
+            android:ems="10"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/input_threshold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/threshold"
+            android:layout_alignBottom="@+id/threshold"
+            android:layout_alignLeft="@+id/input_current"
+            android:layout_alignStart="@+id/input_current"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/change_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/change_pass"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/confirm_setting"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/change_pass"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="61dp"
+            android:text="@string/confirm_setting"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

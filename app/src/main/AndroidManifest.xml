@@ -25,6 +25,9 @@
             android:theme="@style/FullscreenTheme">
         </activity>
 
+        <activity android:name=".SettingActivity">
+        </activity>
+
         <activity android:name=".InputPassActivity"
             android:theme="@style/FullscreenTheme">
         </activity>

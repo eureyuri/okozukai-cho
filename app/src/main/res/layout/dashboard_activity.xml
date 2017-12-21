@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <com.hookedonplay.decoviewlib.DecoView
             android:id="@+id/dynamicArcView"
@@ -15,6 +19,74 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="27dp" />
+
+        <TextView
+            android:id="@+id/current_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/dynamicArcView"
+            android:layout_marginLeft="51dp"
+            android:layout_marginStart="51dp"
+            android:layout_marginTop="19dp"
+            android:text="@string/current"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/this_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/current_price_label"
+            android:layout_alignStart="@+id/current_price_label"
+            android:layout_below="@+id/current_price_label"
+            android:layout_marginTop="19dp"
+            android:text="@string/thisWeek"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/left_over"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/this_week"
+            android:layout_alignStart="@+id/this_week"
+            android:layout_below="@+id/this_week"
+            android:layout_marginTop="22dp"
+            android:text="@string/leftOver"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/currentPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/this_week"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="87dp"
+            android:layout_marginRight="87dp"
+            android:text="¥¥"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/this_week_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/currentPrice"
+            android:layout_alignStart="@+id/currentPrice"
+            android:layout_alignTop="@+id/this_week"
+            android:text="¥¥"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/left_over_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/left_over"
+            android:layout_alignBottom="@+id/left_over"
+            android:layout_alignLeft="@+id/this_week_price"
+            android:layout_alignStart="@+id/this_week_price"
+            android:text="¥¥"
+            android:textSize="24sp" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
