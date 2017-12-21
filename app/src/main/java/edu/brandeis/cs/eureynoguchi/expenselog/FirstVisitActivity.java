@@ -15,6 +15,7 @@ import com.github.paolorotolo.appintro.AppIntro2Fragment;
 public class FirstVisitActivity extends AppIntro2 {
 
 //    https://github.com/apl-devs/AppIntro
+//    TODO restrict to portrait
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

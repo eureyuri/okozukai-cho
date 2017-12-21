@@ -47,7 +47,7 @@ public class InputPassActivity extends AppCompatActivity {
             @Override
             public void onComplete(List<PatternLockView.Dot> pattern) {
                 if (password.equals(PatternLockUtils.patternToString(mPatternLockView, pattern))) {
-                    startActivity(new Intent(InputPassActivity.this, AddExpenseActivity.class));
+                    startActivity(new Intent(InputPassActivity.this, DashboardActivity.class));
                 } else {
                     Toast.makeText(InputPassActivity.this, "パスワードが違います", Toast.LENGTH_SHORT).show();
                     mPatternLockView.clearPattern();
