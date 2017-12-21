@@ -16,12 +16,16 @@ class DBOpenHelper extends SQLiteOpenHelper {
 
     private static DBOpenHelper dbHelperInstance;
 
-    private static final String DATABASE_NAME = "expenses.db";
-    private static final String DATABASE_TABLE = "Expenses";
+    private static final String DATABASE_NAME = "okozukai.db";
+    private static final String DATABASE_TABLE_EXPENSES = "Expenses";
+    private static final String DATABASE_TABLE_USER = "User";
+
     private static final int DATABASE_VERSION = 1;
 
-    private static final String DATABASE_CREATE = "CREATE TABLE " + DATABASE_TABLE +
+    private static final String DATABASE_CREATE_EXPENSES = "CREATE TABLE " + DATABASE_TABLE_EXPENSES +
             " (id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, notes TEXT, time TEXT);";
+    private static final String DATABASE_CREATE_USER = "CREATE TABLE " + DATABASE_TABLE_USER +
+            " (id INTEGER PRIMARY KEY, current INTEGER, thisWeek INTEGER, leftOver INTEGER, threshold INTEGER);";
 
     private DBOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,15 +40,52 @@ class DBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.w("DBOpenHelper onCreate", DATABASE_CREATE);
-        db.execSQL(DATABASE_CREATE);
+        Log.w("DBOpenHelper onCreate", DATABASE_CREATE_EXPENSES);
+        Log.w("DBOpenHelper onCreate", DATABASE_CREATE_USER);
+
+        db.execSQL(DATABASE_CREATE_EXPENSES);
+        db.execSQL(DATABASE_CREATE_USER);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w("DBOpenHelper onUpgrade", "Upgrading from " + oldVersion + " to " + newVersion);
-        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_EXPENSES + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_USER + ";");
+
         onCreate(db);
+    }
+
+    public long addNewUser(int current, int threshold) {
+        ContentValues newValues = new ContentValues();
+
+        newValues.put("id", 1);
+        newValues.put("current", current);
+        newValues.put("thisWeek", 0);
+        newValues.put("leftOver", current);
+        newValues.put("threshold", threshold);
+
+        Log.w("DBOpenHelper", "addNewUser: current: " + current + " threshold: " + threshold);
+
+        return getWritableDatabase().insert(DATABASE_TABLE_USER, null, newValues);
+    }
+
+    public int updateUser(int threshold) {
+        ContentValues newValues = new ContentValues();
+
+        newValues.put("threshold", threshold);
+
+        return getWritableDatabase().update(DATABASE_TABLE_USER, newValues, "id = ?", new String[]{"1"});
+    }
+
+    public User getUser() {
+        Cursor cursor = getWritableDatabase().rawQuery("SELECT * FROM " + DATABASE_TABLE_USER + ";", null);
+        cursor.moveToFirst();
+        return new User(cursor.getInt(cursor.getColumnIndex("current")),
+                cursor.getInt(cursor.getColumnIndex("thisWeek")),
+                cursor.getInt(cursor.getColumnIndex("leftOver")),
+                cursor.getInt(cursor.getColumnIndex("threshold"))
+                );
     }
 
     public long addNewExpense(String description, String notes) {
@@ -56,12 +97,12 @@ class DBOpenHelper extends SQLiteOpenHelper {
 
         Log.w("DBOpenHelper", "addNewExpense: Description: " + description + " Notes: " + notes);
 
-        return getWritableDatabase().insert(DATABASE_TABLE, null, newValues);
+        return getWritableDatabase().insert(DATABASE_TABLE_EXPENSES, null, newValues);
 
     }
 
     public Vector<ExpenseLogEntryData> getExpenses() {
-        Cursor cursor = getWritableDatabase().rawQuery("SELECT * FROM " + DATABASE_TABLE + ";", null);
+        Cursor cursor = getWritableDatabase().rawQuery("SELECT * FROM " + DATABASE_TABLE_EXPENSES + ";", null);
         Vector<ExpenseLogEntryData> entries = new Vector<ExpenseLogEntryData>();
 
         if (cursor.moveToFirst()) {
@@ -80,7 +121,7 @@ class DBOpenHelper extends SQLiteOpenHelper {
     }
 
     public ExpenseLogEntryData getExpense(long id) {
-        Cursor cursor = getWritableDatabase().rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE id = " + id +" ;", null);
+        Cursor cursor = getWritableDatabase().rawQuery("SELECT * FROM " + DATABASE_TABLE_EXPENSES + " WHERE id = " + id +" ;", null);
 
         if (cursor.moveToFirst() && !cursor.isAfterLast()) {
             String description = cursor.getString(cursor.getColumnIndex("description"));
@@ -95,7 +136,7 @@ class DBOpenHelper extends SQLiteOpenHelper {
 
     public void deleteExpense(long id) {
         Log.w("DBOpenHelper", "deleteExpense: id: " + id);
-        getWritableDatabase().delete(DATABASE_TABLE, "id = " + id, null);
+        getWritableDatabase().delete(DATABASE_TABLE_EXPENSES, "id = " + id, null);
     }
 
     public ArrayList<Cursor> getData(String Query) {

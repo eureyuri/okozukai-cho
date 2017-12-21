@@ -8,22 +8,32 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * Created by eureyuri on 2017/12/21.
  */
 
 public class SettingActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
+        EditText current = (EditText)findViewById(R.id.input_current);
+        current.setText(DBOpenHelper.getInstance(getApplicationContext()).getUser().getCurrent() + "");
+        current.setKeyListener(null);
+
         Button confirm = (Button)findViewById(R.id.confirm_setting);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                EditText threshold = (EditText)findViewById(R.id.input_threshold);
+
+                String thresholdString = threshold.getText().toString();
+
+                DBOpenHelper db = DBOpenHelper.getInstance(getApplicationContext());
+                db.updateUser(Integer.parseInt(thresholdString));
                 startActivity(new Intent(SettingActivity.this, DashboardActivity.class));
             }
         });

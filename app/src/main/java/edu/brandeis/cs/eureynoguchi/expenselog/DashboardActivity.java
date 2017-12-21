@@ -6,15 +6,18 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hookedonplay.decoviewlib.DecoView;
 import com.hookedonplay.decoviewlib.charts.SeriesItem;
 import com.hookedonplay.decoviewlib.charts.SeriesLabel;
 import com.hookedonplay.decoviewlib.events.DecoEvent;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by eureyuri on 2017/12/21.
@@ -30,6 +33,8 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.dashboard_activity);
 
         createChart();
+
+        setValues();
     }
 
     private void createChart() {
@@ -69,6 +74,17 @@ public class DashboardActivity extends AppCompatActivity {
         decoView.addEvent(new DecoEvent.Builder(50).setIndex(series2Index).setDelay(1000).build());
 
         decoView.configureAngles(360, 0);
+    }
+
+    private void setValues() {
+        TextView current = (TextView)findViewById(R.id.currentPrice);
+        TextView thisWeek = (TextView)findViewById(R.id.this_week_price);
+        TextView leftOver = (TextView)findViewById(R.id.left_over_price);
+
+        User user = DBOpenHelper.getInstance(getApplicationContext()).getUser();
+        current.setText(user.getCurrent() + "");
+        thisWeek.setText(user.getThisWeek()  + "");
+        leftOver.setText(user.getLeftOver()  + "");
     }
 
     @Override

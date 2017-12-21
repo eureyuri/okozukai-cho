@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * Created by eureyuri on 2017/12/21.
@@ -22,6 +23,10 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.list_activity);
         ListView listView = (ListView)findViewById(R.id.listView);
         listView.setAdapter(new ExpenseTrackerAdapter(DBOpenHelper.getInstance(getApplicationContext()), getApplicationContext()));
+
+        if (listView.getAdapter().getCount() == 0) {
+            Toast.makeText(ListActivity.this, "メニューから追加してください", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
