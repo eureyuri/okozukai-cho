@@ -35,6 +35,9 @@
         <activity android:name=".DashboardActivity">
         </activity>
 
+        <activity android:name=".ListActivity">
+        </activity>
+
         <activity android:name=".AddExpenseActivity">
         </activity>
 

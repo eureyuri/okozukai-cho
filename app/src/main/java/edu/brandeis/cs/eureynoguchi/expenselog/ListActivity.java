@@ -6,27 +6,22 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ListView;
 
 /**
  * Created by eureyuri on 2017/12/21.
  */
 
-public class SettingActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
+
+    final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
-
-        Button confirm = (Button)findViewById(R.id.confirm_setting);
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SettingActivity.this, DashboardActivity.class));
-            }
-        });
+        setContentView(R.layout.list_activity);
+        ListView listView = (ListView)findViewById(R.id.listView);
+        listView.setAdapter(new ExpenseTrackerAdapter(DBOpenHelper.getInstance(getApplicationContext()), getApplicationContext()));
     }
 
     @Override
@@ -52,17 +47,33 @@ public class SettingActivity extends AppCompatActivity {
 
     private boolean menuChoice(MenuItem item) {
         if (item.getItemId() == 0) {
-            startActivity(new Intent(this, ListActivity.class));
             return true;
         } else if (item.getItemId() == 1) {
-            startActivity(new Intent(this, AddExpenseActivity.class));
+            startActivityForResult(new Intent(this, AddExpenseActivity.class), REQUEST_CODE);
             return true;
         } else if (item.getItemId() == 2) {
+            startActivity(new Intent(this, SettingActivity.class));
             return true;
         } else if (item.getItemId() == 3) {
             startActivity(new Intent(this, AndroidDatabaseManager.class));
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE) {
+            if(resultCode == RESULT_OK) {
+                long id = data.getLongExtra("id", -1);
+                ExpenseLogEntryData expenseEntry = DBOpenHelper.getInstance(getApplicationContext()).getExpense(id);
+                ListView listView = (ListView)findViewById(R.id.listView);
+                ExpenseTrackerAdapter expenseAdapter = (ExpenseTrackerAdapter)listView.getAdapter();
+                expenseAdapter.add(expenseEntry);
+                expenseAdapter.notifyDataSetChanged();
+            }
+        }
     }
 }
